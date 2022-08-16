@@ -16,7 +16,7 @@ async function logIn(e){
         localStorage.setItem('token',response.data.token);
         localStorage.setItem('email',response.data.email);
         alert('Successfully Logged In!');
-        window.location.href="http://localhost:3000/expense/expense.html";
+        window.location.href="http://localhost:3000/application.html";
         }
         catch(error)
         {   const message = error.response.data.message;
