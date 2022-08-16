@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <nav></nav>
+    <header>
+        <h1>Group Chat Application</h1>
+    </header>
+  <form class="login-form" method="POST">
+        <input type="email" name="email" placeholder="email" required/>
+        <br>
+        <input type="password" name="password" placeholder="password" required/>
+        <br>
+        <input type="submit" value="Log In"/>
+  </form>
+  <div class="forgot-popup">
+     <div class="forgot-password">
+        <form method="POST">
+            <label for="email">Enter your Email Id</label>
+            <br>
+            <input type="email" name="email" placeholder="Your Email">
+            <br>
+            <input type="submit" value="send code"/>
+        </form>
+        <a href="#"></a>
+    </div>
+        <button class="forget-close">X</button>
+  </div>
+  <button class="to-forgot-password">Forgot password?</button>
+  <a href="signup.html" class="to-signup-page">New user? Create an account</a>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- <script src="login.js"></script> -->
+</body>
+</html>
