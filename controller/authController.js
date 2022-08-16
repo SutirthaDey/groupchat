@@ -60,7 +60,7 @@ exports.postLogin = async(req,res,next)=>{
    })
 
    if(!ifUserExists)
-    throw Error("Wrong email id!");
+    throw Error("Wrong Email id!");
 
    const ifPassMatched = await bcrypt.compare(password,ifUserExists.password);
 
@@ -72,6 +72,11 @@ exports.postLogin = async(req,res,next)=>{
  }
  catch(e)
  {
-   res.status(400).json({message: e.message});
+   if(e.message === 'Wrong Email id!'){
+      res.status(404).json({message: e.message, success: false});
+      return;
+  }
+  else if(e.message === 'Wrong Password!')
+      res.status(401).json({message: e.message, success: false});
  }
 }
