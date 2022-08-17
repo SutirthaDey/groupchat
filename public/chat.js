@@ -17,11 +17,19 @@ messageForm.addEventListener('submit',async(e)=>{
 
 window.addEventListener('DOMContentLoaded',async()=>{
     try{
-        const response = await axios.get('http://localhost:3000/chat',{headers:{'Authorization': token}});
+        setInterval(async() => {
+            try{
+            const response = await axios.get('http://localhost:3000/chat',{headers:{'Authorization': token}});
+            }
+            catch(e)
+            {
+                window.location.reload();
+            }
+        }, 1000);
     }
     catch(e)
     {
-        window.location.href = "http://localhost:3000/login.html"
+        window.location.href = "http://localhost:3000/login.html";
         console.log(e);
     }
 })
