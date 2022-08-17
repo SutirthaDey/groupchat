@@ -13,7 +13,59 @@ body {
     min-width: 100vw;
     position: absolute;
     margin: 0;
+    overflow-x: hidden;
 }
+
+#message-div{
+    position: fixed; 
+    bottom: 0;
+    height: 50px;
+    background-color: #820086;
+    width: 100vw;
+    text-align: center;
+}
+
+#message-form input:nth-child(1){
+    width: 400px;
+    height: 30px;
+    border: 1px solid rgb(44, 43, 43);
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+#message-form input:nth-last-child(1){
+    width: 100px;
+    height: 30px;
+    border-radius: 2px;
+    border-color: rgb(136, 136, 136);
+}
+
+#message-form input:nth-last-child(1):hover{
+    background-color: #858383;
+}
+
+input::-webkit-input-placeholder {
+    font-size: 16px;
+    line-height: 3;
+}
+
+#chats{
+    position: relative;
+    width: 800px;
+    top: 50px;
+}
+#chats div{
+    height: 40px;
+    padding: 8px
+}
+#chats div:nth-child(odd){
+    background-color: #b3b3b3;
+}
+
+
+
+/* ================================ */
+
 
 header{
     color: #00a884;
