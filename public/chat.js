@@ -3,24 +3,40 @@ const messageForm = document.getElementById('message-form');
 const chatDiv = document.getElementById('chats');
 const userId = localStorage.getItem('userId');
 const groupFrom = document.querySelector('#createGroup form');
+const addMembers = document.getElementById('addMembers');
 
-function showGroup(){
+async function showGroup(){
     document.querySelector('#createGroup').style.display = 'block';
+    const response = await axios.get(`http://localhost:3000/users?userId=${userId}`, {headers:{'Authorization': token}});
+
+    response.data.users.forEach((user)=>{
+        addMembers.innerHTML += `<li><input type="checkbox"/><input type='hidden' value='${user.id}'/>${user.name}</li>`
+    })
 }
 
 function closeGroup(){
+    addMembers.innerHTML='';
     document.querySelector('#createGroup').style.display = 'none';
 }
 
 // This is for getting the checkboxes and member names from the checkboxes
 groupFrom.addEventListener('submit', async(e)=>{
     e.preventDefault();
-    console.log(e.target.name.value);
+    const groups = document.getElementById('groups');
+    const groupName = e.target.name.value;
     const Licheckboxes = e.target.querySelectorAll("li");
+    let groupMemberList = [userId];
     Licheckboxes.forEach((eachLiBox)=>{
         const checkbox = eachLiBox.firstElementChild;
-        checkbox.checked? console.log(eachLiBox.lastChild): null;
+        const userId = checkbox.nextElementSibling.value;
+   
+        checkbox.checked? groupMemberList.push(userId): null;
     })
+    console.log(groupMemberList);
+    groups.innerHTML+= `<div><Button>${groupName}</Button></div>`;
+    setTimeout(() => {
+        closeGroup();
+    }, 500);
 })
 
 

@@ -63,6 +63,7 @@ input::-webkit-input-placeholder {
    width: 10vw;
    top: 60px;
    left: 5px;
+   min-height: 50px;
    max-height: 40vh;
    overflow-y: scroll;
    background-color: #00a884; 
