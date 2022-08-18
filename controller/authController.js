@@ -68,7 +68,7 @@ exports.postLogin = async(req,res,next)=>{
     throw Error("Wrong Password!");
    
    const token = createjwtToken(ifUserExists.id);
-   res.json({email:email,token:token, success:true});
+   res.json({email:email,token:token, userId:ifUserExists.id, success:true});
  }
  catch(e)
  {

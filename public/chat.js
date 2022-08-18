@@ -1,6 +1,7 @@
 const token = localStorage.getItem('token');
 const messageForm = document.getElementById('message-form');
 const chatDiv = document.getElementById('chats');
+const userId = localStorage.getItem('userId');
 
 messageForm.addEventListener('submit',async(e)=>{
  try{
@@ -18,8 +19,9 @@ messageForm.addEventListener('submit',async(e)=>{
 
 function showChats(messages){
  chatDiv.innerHTML='';
- messages.forEach((message)=>{
-    chatDiv.innerHTML += `<div>${message.user.name}: ${message.message}</div>`
+ messages.forEach((message)=>{    
+    const name = message.user.id == userId ? 'You' : message.user.name;
+    chatDiv.innerHTML += `<div>${name}: ${message.message}</div>`
  })
 }
 
@@ -53,8 +55,6 @@ window.addEventListener('DOMContentLoaded',async()=>{
 
                 let localMessages = messages.concat(response.data);
                 let jsonLocalMessages = JSON.stringify(localMessages);
-
-                console.log(jsonLocalMessages.length);
 
                 while(jsonLocalMessages.length>5000000){
                     localMessages.shift();

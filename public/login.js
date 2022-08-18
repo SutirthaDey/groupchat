@@ -15,6 +15,7 @@ async function logIn(e){
         const response = await axios.post('http://localhost:3000/login', userData);
         localStorage.setItem('token',response.data.token);
         localStorage.setItem('email',response.data.email);
+        localStorage.setItem('userId', response.data.userId);
         alert('Successfully Logged In!');
         window.location.href="http://localhost:3000/chat.html";
         }

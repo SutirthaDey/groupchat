@@ -15,7 +15,7 @@ exports.getChat = async(req,res,next)=>{
             attributes:['id','message'],
             include:[{
                 model: User,
-                attributes: ['name']
+                attributes: ['name','id']
             }]
         });
         res.json(messages);
