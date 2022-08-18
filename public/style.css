@@ -51,12 +51,16 @@ input::-webkit-input-placeholder {
 
 #chats{
     position: relative;
-    width: 800px;
-    top: 50px;
+    width: 80vw;
+    top: 30px;
+    bottom: 50px;
+    max-height: 80vh;
+    overflow: scroll;
 }
 #chats div{
     height: 40px;
-    padding: 8px
+    padding: 8px;
+    margin-bottom: 5px;
 }
 #chats div:nth-child(odd){
     background-color: #b3b3b3;
