@@ -2,6 +2,27 @@ const token = localStorage.getItem('token');
 const messageForm = document.getElementById('message-form');
 const chatDiv = document.getElementById('chats');
 const userId = localStorage.getItem('userId');
+const groupFrom = document.querySelector('#createGroup form');
+
+function showGroup(){
+    document.querySelector('#createGroup').style.display = 'block';
+}
+
+function closeGroup(){
+    document.querySelector('#createGroup').style.display = 'none';
+}
+
+// This is for getting the checkboxes and member names from the checkboxes
+groupFrom.addEventListener('submit', async(e)=>{
+    e.preventDefault();
+    console.log(e.target.name.value);
+    const Licheckboxes = e.target.querySelectorAll("li");
+    Licheckboxes.forEach((eachLiBox)=>{
+        const checkbox = eachLiBox.firstElementChild;
+        checkbox.checked? console.log(eachLiBox.lastChild): null;
+    })
+})
+
 
 messageForm.addEventListener('submit',async(e)=>{
  try{

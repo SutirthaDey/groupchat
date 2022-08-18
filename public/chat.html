@@ -9,9 +9,37 @@
 </head>
 <body>
     <h1>Chat App</h1>
+    <div id="groups">
+        <div>Your Groups</div>
+        <!-- <div><Button>Group1</Button></div>
+        <div><Button>Group2</Button></div> -->
+    </div>
+    <button id="createGroupButton" onclick="showGroup()">Create Your Group</button>
     <div id="chats">
         <!-- <div>You Joined!</div>
         <div>Vaibhab: Hi!</div> -->
+    </div>
+    <div id="createGroup">
+        <button id="closeGroup" onclick="closeGroup()">X</button>
+        <form method="POST">
+            <label for="name">Name of the group</label>
+            <br>
+            <input type="text" name="name" id="name">
+            <br>
+            <br>
+            <label for="label">Add Members</label>
+            <ul id="addMembers">
+              <!-- <li><input type="checkbox" />Sutirtha Dey</li>
+              <li><input type="checkbox" />Rahul Chakraborty</li>
+              <li><input type="checkbox" />Grapes</li>
+              <li><input type="checkbox" />Berry</li>
+              <li><input type="checkbox" />Mango</li>
+              <li><input type="checkbox" />Banana</li>
+              <li><input type="checkbox" />Tomato</li> -->
+            </ul>
+            <br>
+            <input type="submit" name="submit" id="submit" value="create group">
+        </form>
     </div>
     <div id="message-div">
         <form action="POST" id="message-form">

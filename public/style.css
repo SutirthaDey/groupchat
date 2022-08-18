@@ -51,22 +51,73 @@ input::-webkit-input-placeholder {
 
 #chats{
     position: relative;
-    width: 80vw;
+    width: 50vw;
     top: 30px;
     bottom: 50px;
     max-height: 80vh;
     overflow: scroll;
 }
-#chats div{
+
+#groups{
+   position: absolute;
+   width: 10vw;
+   top: 60px;
+   left: 5px;
+   max-height: 40vh;
+   overflow-y: scroll;
+   background-color: #00a884; 
+}
+
+#chats div, #groups div{
     height: 40px;
     padding: 8px;
     margin-bottom: 5px;
 }
+
 #chats div:nth-child(odd){
     background-color: #b3b3b3;
 }
 
+#createGroupButton{
+    position: absolute;
+    right: 5px;
+    top: 20px;
+    height: 30px;
+    width: 200px;
+}
 
+#createGroup{
+    position: absolute;
+    right: 0;
+    top: 100px;
+    height: 100px;
+    width: 300px;
+    display: none;
+}
+
+#closeGroup{
+    float: right;
+    margin: 5px;
+}
+
+#addMembers{
+    height: 100px;
+    overflow-y: scroll;
+    width: 300px;
+}
+
+#createGroup form{
+    background-color: #479400;
+    color: white;
+}
+
+#createGroup form *{
+    margin-left: 10px;
+}
+
+#closeGroup{
+    color: red;
+}
 
 /* ================================ */
 
