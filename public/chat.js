@@ -70,6 +70,9 @@ window.addEventListener('DOMContentLoaded',async()=>{
         id=0;
         messages=[];
         }
+        else if(messages.length===0){
+        id=0
+        }
         else
         id = messages[messages.length-1].id;
 
@@ -84,6 +87,9 @@ window.addEventListener('DOMContentLoaded',async()=>{
                 if(!messages){
                 id=0;
                 messages=[];
+                }
+                else if(messages.length===0){
+                id=0
                 }
                 else
                 id = messages[messages.length-1].id;
@@ -102,13 +108,14 @@ window.addEventListener('DOMContentLoaded',async()=>{
                 showChats(localMessages);
             }
             catch(e){
-                window.location.href = "http://localhost:3000/login.html";
+                console.log(e);
+                // window.location.href = "http://localhost:3000/login.html";
             }
         }, 1000);
     }
     catch(e)
     {
-        window.location.href = "http://localhost:3000/login.html";
+        // window.location.href = "http://localhost:3000/login.html";
         console.log(e);
     }
 })

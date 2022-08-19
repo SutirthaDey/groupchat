@@ -26,7 +26,7 @@ app.use(chatRoute);
 app.use(authRoute);
 
 async function runServer(){
-    await sequelize.sync({force:true});
+    await sequelize.sync();
     app.listen(process.env.PORT || 3000);
 }
 
