@@ -4,6 +4,7 @@ const chatDiv = document.getElementById('chats');
 const userId = localStorage.getItem('userId');
 const groupFrom = document.querySelector('#createGroup form');
 const addMembers = document.getElementById('addMembers');
+const groups = document.getElementById('groups');
 
 async function showGroup(){
     document.querySelector('#createGroup').style.display = 'block';
@@ -19,6 +20,12 @@ function closeGroup(){
     document.querySelector('#createGroup').style.display = 'none';
 }
 
+function showGroupList(groupList){
+    groupList.forEach(({id,name})=>{
+        groups.innerHTML+= `<div><Button id=${id}>${name}</Button></div>`
+    })
+}
+
 // This is for getting the checkboxes and member names from the checkboxes
 groupFrom.addEventListener('submit', async(e)=>{
     e.preventDefault();
@@ -32,8 +39,16 @@ groupFrom.addEventListener('submit', async(e)=>{
    
         checkbox.checked? groupMemberList.push(userId): null;
     })
-    console.log(groupMemberList);
-    groups.innerHTML+= `<div><Button>${groupName}</Button></div>`;
+    const groupData = {
+        groupName: groupName,
+        groupMembers: groupMemberList
+    }
+
+    const response = await axios.post(`http://localhost:3000/createGroup`, groupData, {headers:{'Authorization': token}});
+    const groupId = response.data.group.id;
+
+    // add group id to button
+    groups.innerHTML+= `<div><Button id=${groupId}>${groupName}</Button></div>`;
     setTimeout(() => {
         closeGroup();
     }, 500);
@@ -77,6 +92,9 @@ window.addEventListener('DOMContentLoaded',async()=>{
         id = messages[messages.length-1].id;
 
         const response = await axios.get(`http://localhost:3000/chat?id=${id}`,{headers:{'Authorization': token}});
+        const groups = await axios.get(`http://localhost:3000/groups`, {headers:{'Authorization': token}});
+
+        showGroupList(groups.data);
         
         setInterval(async() => {
             try{
