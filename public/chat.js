@@ -70,20 +70,42 @@ async function sendMessage(e){
 async function getGroupMembers(){
   const members = await axios.get(`http://localhost:3000/getMembers?groupId=${activeGroupId}`, {headers:{'Authorization':token}});
   groupMembers.innerHTML = `<h3 style="color:white">Group Members</h3>`;
+  let isAdmin = false;
 
   members.data.forEach((eachMember)=>{
-    
+    if(eachMember.id == userId && eachMember.isAdmin)
+     isAdmin = true;
+  })
+
+  members.data.forEach((eachMember)=>{
+    const membership = eachMember.isAdmin ? 'admin': 'member';
     if(eachMember.id == userId){
         groupMembers.innerHTML += `<div>
-        <p>You</p>
+        <p>You(${membership})</p>
         <button>Leave Group</button>
         </div>`
     }
     else{
-    groupMembers.innerHTML += `<div>
-    <p>${eachMember.name}</p>
-    <button>Make admin</button><button>Dismiss as admin</button><button>Remove from group</button>
-    </div>`
+        if(isAdmin){
+            if(eachMember.isAdmin){
+            groupMembers.innerHTML += `<div>
+            <p>${eachMember.name}(${membership})</p>
+            <button>Dismiss as admin</button><button>Remove from group</button>
+            </div>`
+            }
+            else{
+                groupMembers.innerHTML += `<div>
+                <p>${eachMember.name}(${membership})</p>
+                <button>Make admin</button><button>Remove from group</button>
+                </div>` 
+            }
+        }
+        else
+        {
+        groupMembers.innerHTML += `<div>
+        <p>${eachMember.name}(${membership})</p>
+        </div>`  
+        }
     }
   })
 }

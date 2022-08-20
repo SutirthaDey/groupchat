@@ -31,7 +31,8 @@ exports.createGroup = async(req,res,next)=>{
 
     groupMembers.forEach(async(memberId) => {
         const user = await User.findByPk(memberId);
-        await group.addUser(user,{through: GroupDetails});
+        const isAdmin = req.user.id == user.id ? true : false
+        await group.addUser(user,{through: {isAdmin:isAdmin}});
     });
 
     res.json({group});
@@ -47,7 +48,7 @@ exports.getMembers = async(req,res,next)=>{
         attributes:[
             'name',
             'id',
-            [Sequelize.col("groupDetails.id"), "groupDetailsId"],
+            [Sequelize.col("groupDetails.isAdmin"), "isAdmin"],
         ],
       })
       res.json(members);
