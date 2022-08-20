@@ -9,6 +9,7 @@ const User = require('./models/user');
 const Message = require('./models/message');
 const Group = require('./models/group');
 const GroupDetails = require('./models/group-details');
+const MessageDetails = require('./models/message-details');
 const app = express();
 
 dotenv.config();
@@ -18,8 +19,12 @@ app.use(express.json());
 User.hasMany(Message);
 Message.belongsTo(User);
 
+Message.belongsToMany(Group,{through: MessageDetails});
+Group.belongsToMany(Message,{through: MessageDetails});
+
 Group.belongsToMany(User,{through: GroupDetails});
 User.belongsToMany(Group,{through: GroupDetails});
+
 
 app.use(groupRoute);
 app.use(chatRoute);

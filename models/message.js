@@ -11,6 +11,10 @@ const Message = sequelize.define('message',{
     message: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    global:{
+        type: Sequelize.BOOLEAN,
+        allowNull: false
     }
 })
 
