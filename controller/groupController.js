@@ -46,6 +46,7 @@ exports.getMembers = async(req,res,next)=>{
       const members = await group.getUsers({
         attributes:[
             'name',
+            'id',
             [Sequelize.col("groupDetails.id"), "groupDetailsId"],
         ],
       })

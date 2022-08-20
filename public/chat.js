@@ -49,7 +49,7 @@ async function fetchMessages(){
    catch(e)
    {
       console.log(e);
-      window.location.href = "http://localhost:3000/login.html";
+    //   window.location.href = "http://localhost:3000/login.html";
    }
 }
 
@@ -72,10 +72,19 @@ async function getGroupMembers(){
   groupMembers.innerHTML = `<h3 style="color:white">Group Members</h3>`;
 
   members.data.forEach((eachMember)=>{
+    
+    if(eachMember.id == userId){
+        groupMembers.innerHTML += `<div>
+        <p>You</p>
+        <button>Leave Group</button>
+        </div>`
+    }
+    else{
     groupMembers.innerHTML += `<div>
     <p>${eachMember.name}</p>
     <button>Make admin</button><button>Dismiss as admin</button><button>Remove from group</button>
     </div>`
+    }
   })
 }
 
@@ -180,7 +189,11 @@ window.addEventListener('DOMContentLoaded',async()=>{
     }
     catch(e)
     {
-        window.location.href = "http://localhost:3000/login.html";
+        // window.location.href = "http://localhost:3000/login.html";
         console.log(e);
     }
+})
+
+groupMembers.addEventListener('click',(e)=>{
+    
 })
