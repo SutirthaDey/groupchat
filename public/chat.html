@@ -9,17 +9,18 @@
 </head>
 <body>
     <h1>Chat App</h1>
-    <div><Button onclick="globalButton()">Global Group</Button></div>
+    <div><Button onclick="globalButton()" id='0' class="groupButtons">Go to the global group</Button></div>
+
     <div id="groups">
-        <div>Your Groups</div>
-        <!-- <div><Button>Group1</Button></div>
-        <div><Button>Group2</Button></div> -->
     </div>
+
     <button id="createGroupButton" onclick="showGroup()">Create Your Group</button>
+
     <div id="chats">
         <!-- <div>You Joined!</div>
         <div>Vaibhab: Hi!</div> -->
     </div>
+
     <div id="createGroup">
         <button id="closeGroup" onclick="closeGroup()">X</button>
         <form method="POST">
@@ -42,12 +43,14 @@
             <input type="submit" name="submit" id="submit" value="create group">
         </form>
     </div>
+
     <div id="message-div">
         <form action="POST" id="message-form">
             <input type="text" name="message" id="message" placeholder="type your message">
             <input type="submit" name="submit">
         </form>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="chat.js"></script>
 </body>

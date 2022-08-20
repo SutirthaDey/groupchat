@@ -66,7 +66,7 @@ input::-webkit-input-placeholder {
    min-height: 50px;
    max-height: 40vh;
    overflow-y: scroll;
-   background-color: #00a884; 
+   background-color: #2e5f00; 
 }
 
 #chats div, #groups div{
@@ -108,7 +108,7 @@ input::-webkit-input-placeholder {
 }
 
 #createGroup form{
-    background-color: #479400;
+    background-color: #2e5f00;
     color: white;
 }
 
@@ -119,8 +119,6 @@ input::-webkit-input-placeholder {
 #closeGroup{
     color: red;
 }
-
-/* ================================ */
 
 
 header{
@@ -358,4 +356,9 @@ margin: 0 5px;
 
 .pageItems.active{
 background-color: green;
+}
+
+.active{
+    background-color: #cf9f37;
+    border: none;
 }
