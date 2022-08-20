@@ -37,6 +37,26 @@ exports.createGroup = async(req,res,next)=>{
     res.json({group});
 }
 
+exports.getMembers = async(req,res,next)=>{
+   try{
+      const groupId = req.query.groupId;
+      console.log('+++',groupId)
+      const group = await Group.findByPk(groupId);
+
+      const members = await group.getUsers({
+        attributes:[
+            'name',
+            [Sequelize.col("groupDetails.id"), "groupDetailsId"],
+        ],
+      })
+      res.json(members);
+   }
+   catch(e)
+   {
+      console.log(e)
+   }
+}
+
 exports.getGroups = async(req,res,next)=>{
     try{
     const response = await req.user.getGroups({

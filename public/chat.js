@@ -5,6 +5,7 @@ const userId = localStorage.getItem('userId');
 const groupFrom = document.querySelector('#createGroup form');
 const addMembers = document.getElementById('addMembers');
 const groups = document.getElementById('groups');
+const groupMembers = document.getElementById('groupInfo');
 let activeGroupId = localStorage.getItem('activeGroupId');
 let setTimer;
 
@@ -27,6 +28,12 @@ async function fetchMessages(){
 
     showGroupList(groups.data);
     getAllGroupButtons();
+
+    if(!activeGroupId || activeGroupId===0){
+        groupMembers.innerHTML = '';
+    }else{
+        getGroupMembers();
+    }
 
     let localMessages = messages.concat(response.data);
     let jsonLocalMessages = JSON.stringify(localMessages);
@@ -58,6 +65,18 @@ async function sendMessage(e){
      {
         console.log(e);
      }
+}
+
+async function getGroupMembers(){
+  const members = await axios.get(`http://localhost:3000/getMembers?groupId=${activeGroupId}`, {headers:{'Authorization':token}});
+  groupMembers.innerHTML = `<h3 style="color:white">Group Members</h3>`;
+
+  members.data.forEach((eachMember)=>{
+    groupMembers.innerHTML += `<div>
+    <p>${eachMember.name}</p>
+    <button>Make admin</button><button>Dismiss as admin</button><button>Remove from group</button>
+    </div>`
+  })
 }
 
 function globalButton(){
