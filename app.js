@@ -30,6 +30,10 @@ app.use(groupRoute);
 app.use(chatRoute);
 app.use(authRoute);
 
+app.get('/',(req,res,next)=>{
+    res.sendFile(path.join(__dirname,'public','login.html'));
+})
+
 async function runServer(){
     await sequelize.sync();
     app.listen(process.env.PORT || 3000);
