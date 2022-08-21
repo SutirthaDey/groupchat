@@ -2,6 +2,7 @@ const loginForm =  document.querySelector('.login-form');
 const forgotPopUp = document.querySelector('.forgot-popup');
 const forgotPassword = document.querySelector('.to-forgot-password');
 const closeForget = document.querySelector('.forget-close');
+localStorage.setItem('activeGroupId',0)
 
 async function logIn(e){
     try{

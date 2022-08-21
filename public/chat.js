@@ -81,13 +81,15 @@ async function getGroupMembers(){
             groupMembers.innerHTML += `<div>
             <p>${eachMember.name}(${membership})</p>
             <button>Dismiss as admin</button><button>Remove from group</button>
+            <input type="hidden" value='${eachMember.id}'/>
             </div>`
             }
             else{
                 groupMembers.innerHTML += `<div>
                 <p>${eachMember.name}(${membership})</p>
                 <button>Make admin</button><button>Remove from group</button>
-                </div>` 
+                <input type="hidden" value='${eachMember.id}'/>
+                </div>`
             }
         }
         else
@@ -233,11 +235,12 @@ groupMembers.addEventListener('click',async(e)=>{
 
         }
         else if(e.target.innerText === 'Dissmiss as admin'){
-
         }
         else if(e.target.innerText === 'Remove from group'){
-
+            const userId = e.target.nextElementSibling.value;
+            await axios.post('http://localhost:3000/removeMember',{userId:userId,groupId:activeGroupId},{headers:{'Authorization':token}});
         }
+
         fetchGroups();
     }
     catch(e)
