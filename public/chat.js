@@ -116,6 +116,19 @@ async function showGroup(){
     })
 }
 
+async function fetchGroups(){
+    const groups = await axios.get(`http://localhost:3000/groups`, {headers:{'Authorization': token}});
+
+    showGroupList(groups.data);
+    getAllGroupButtons();
+
+    if(!activeGroupId || activeGroupId===0){
+        groupMembers.innerHTML = '';
+    }else{
+        getGroupMembers();
+    }
+}
+
 function closeGroup(){
     addMembers.innerHTML='';
     document.querySelector('#createGroup').style.display = 'none';
@@ -208,19 +221,28 @@ window.addEventListener('DOMContentLoaded',async()=>{
     }
 })
 
-groupMembers.addEventListener('click',(e)=>{
-    
+groupMembers.addEventListener('click',async(e)=>{
+
+    try{
+        if(e.target.innerText == "Leave Group"){
+            await axios.post('http://localhost:3000/removeMember',{userId:userId,groupId:activeGroupId},{headers:{'Authorization':token}});
+            localStorage.setItem('activeGroupId',0);
+            activeGroupId=0;
+        }
+        else if(e.target.innerText === 'Make admin'){
+
+        }
+        else if(e.target.innerText === 'Dissmiss as admin'){
+
+        }
+        else if(e.target.innerText === 'Remove from group'){
+
+        }
+        fetchGroups();
+    }
+    catch(e)
+    {
+        console.log(e);
+    }
 })
 
-async function fetchGroups(){
-    const groups = await axios.get(`http://localhost:3000/groups`, {headers:{'Authorization': token}});
-
-    showGroupList(groups.data);
-    getAllGroupButtons();
-
-    if(!activeGroupId || activeGroupId===0){
-        groupMembers.innerHTML = '';
-    }else{
-        getGroupMembers();
-    }
-}

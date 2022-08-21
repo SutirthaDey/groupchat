@@ -80,3 +80,21 @@ exports.getGroups = async(req,res,next)=>{
         res.json({message: e.message});
     }
 }
+
+exports.removeMember = async(req,res,next)=>{
+
+    try{
+    const {userId,groupId} = req.body;
+    const userToBeDeleted = await GroupDetails.findOne({
+        where: {
+            [Op.and]:[{groupId:groupId},{userId:userId}]
+        }
+    })
+    await userToBeDeleted.destroy();
+    res.json({success:true});
+   }
+   catch(e)
+   {
+    console.log(e);
+   }
+}
