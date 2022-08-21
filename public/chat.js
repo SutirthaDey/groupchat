@@ -24,16 +24,6 @@ async function fetchMessages(){
     id = messages[messages.length-1].id;
 
     const response = await axios.get(`http://localhost:3000/chat?id=${id}&groupId=${activeGroupId}`,{headers:{'Authorization': token}});
-    const groups = await axios.get(`http://localhost:3000/groups`, {headers:{'Authorization': token}});
-
-    showGroupList(groups.data);
-    getAllGroupButtons();
-
-    if(!activeGroupId || activeGroupId===0){
-        groupMembers.innerHTML = '';
-    }else{
-        getGroupMembers();
-    }
 
     let localMessages = messages.concat(response.data);
     let jsonLocalMessages = JSON.stringify(localMessages);
@@ -114,7 +104,7 @@ function globalButton(){
     activeGroupId = 0;
     localStorage.setItem('activeGroupId',0);
     fetchMessages();
-    getAllGroupButtons();
+    fetchGroups();
 }
 
 async function showGroup(){
@@ -163,7 +153,7 @@ groups.addEventListener('click',async(e)=>{
         activeGroupId = e.target.id;
         localStorage.setItem('activeGroupId',activeGroupId);
         fetchMessages();
-        getAllGroupButtons();
+        fetchGroups();
     }
 });
 
@@ -208,6 +198,8 @@ window.addEventListener('DOMContentLoaded',async()=>{
         fetchMessages();
 
         setTimer = setInterval(() => fetchMessages(), 1000);
+
+        fetchGroups();
     }
     catch(e)
     {
@@ -219,3 +211,16 @@ window.addEventListener('DOMContentLoaded',async()=>{
 groupMembers.addEventListener('click',(e)=>{
     
 })
+
+async function fetchGroups(){
+    const groups = await axios.get(`http://localhost:3000/groups`, {headers:{'Authorization': token}});
+
+    showGroupList(groups.data);
+    getAllGroupButtons();
+
+    if(!activeGroupId || activeGroupId===0){
+        groupMembers.innerHTML = '';
+    }else{
+        getGroupMembers();
+    }
+}
