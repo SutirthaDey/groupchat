@@ -98,3 +98,23 @@ exports.removeMember = async(req,res,next)=>{
     console.log(e);
    }
 }
+
+exports.adminControl = async(req,res,next)=>{
+    try{
+        const {userId,groupId,adminStatus} = req.body;
+
+        const userToBeChanged = await GroupDetails.findOne({
+            where: {
+                [Op.and]:[{groupId:groupId},{userId:userId}]
+            }
+        });
+        await userToBeChanged.update({
+            isAdmin:adminStatus
+        });
+        res.json({success:true});
+    }
+    catch(e)
+    {
+        console.log(e);
+    }
+}

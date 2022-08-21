@@ -39,7 +39,7 @@ async function fetchMessages(){
    catch(e)
    {
       console.log(e);
-    //   window.location.href = "http://localhost:3000/login.html";
+      window.location.href = "http://localhost:3000/login.html";
    }
 }
 
@@ -218,7 +218,7 @@ window.addEventListener('DOMContentLoaded',async()=>{
     }
     catch(e)
     {
-        // window.location.href = "http://localhost:3000/login.html";
+        window.location.href = "http://localhost:3000/login.html";
         console.log(e);
     }
 })
@@ -228,19 +228,22 @@ groupMembers.addEventListener('click',async(e)=>{
     try{
         if(e.target.innerText == "Leave Group"){
             await axios.post('http://localhost:3000/removeMember',{userId:userId,groupId:activeGroupId},{headers:{'Authorization':token}});
+            localStorage.removeItem(activeGroupId);
             localStorage.setItem('activeGroupId',0);
             activeGroupId=0;
         }
         else if(e.target.innerText === 'Make admin'){
-
+            const userId = e.target.nextElementSibling.nextElementSibling.value;
+            await axios.post('http://localhost:3000/adminControl',{userId:userId,groupId:activeGroupId,adminStatus:true},{headers:{'Authorization':token}});
         }
-        else if(e.target.innerText === 'Dissmiss as admin'){
+        else if(e.target.innerText === 'Dismiss as admin'){
+            const userId = e.target.nextElementSibling.nextElementSibling.value;
+            await axios.post('http://localhost:3000/adminControl',{userId:userId,groupId:activeGroupId,adminStatus:false},{headers:{'Authorization':token}});
         }
         else if(e.target.innerText === 'Remove from group'){
             const userId = e.target.nextElementSibling.value;
             await axios.post('http://localhost:3000/removeMember',{userId:userId,groupId:activeGroupId},{headers:{'Authorization':token}});
         }
-
         fetchGroups();
     }
     catch(e)

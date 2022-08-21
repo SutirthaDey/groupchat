@@ -2,7 +2,6 @@ const loginForm =  document.querySelector('.login-form');
 const forgotPopUp = document.querySelector('.forgot-popup');
 const forgotPassword = document.querySelector('.to-forgot-password');
 const closeForget = document.querySelector('.forget-close');
-localStorage.setItem('activeGroupId',0)
 
 async function logIn(e){
     try{
@@ -14,6 +13,8 @@ async function logIn(e){
         }
 
         const response = await axios.post('http://localhost:3000/login', userData);
+        localStorage.clear();
+        localStorage.setItem('activeGroupId',0);
         localStorage.setItem('token',response.data.token);
         localStorage.setItem('email',response.data.email);
         localStorage.setItem('userId', response.data.userId);
