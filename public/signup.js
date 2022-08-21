@@ -12,9 +12,9 @@ try{
         password: e.target.password.value
     }
 
-    await axios.post('http://localhost:3000/signup', userData);
+    await axios.post('http://35.160.124.16:3000/signup', userData);
     alert('Successfully Signed Up!');
-    window.location.href = "http://localhost:3000/login.html";
+    window.location.href = "http://35.160.124.16:3000/login.html";
     }
     catch(error)
     {

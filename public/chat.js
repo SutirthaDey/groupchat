@@ -23,7 +23,7 @@ async function fetchMessages(){
     else
     id = messages[messages.length-1].id;
 
-    const response = await axios.get(`http://localhost:3000/chat?id=${id}&groupId=${activeGroupId}`,{headers:{'Authorization': token}});
+    const response = await axios.get(`http://35.160.124.16:3000/chat?id=${id}&groupId=${activeGroupId}`,{headers:{'Authorization': token}});
 
     let localMessages = messages.concat(response.data);
     let jsonLocalMessages = JSON.stringify(localMessages);
@@ -39,7 +39,7 @@ async function fetchMessages(){
    catch(e)
    {
       console.log(e);
-      window.location.href = "http://localhost:3000/login.html";
+      window.location.href = "http://35.160.124.16:3000/login.html";
    }
 }
 
@@ -47,7 +47,7 @@ async function sendMessage(e){
     try{
         e.preventDefault();
         const message = e.target.message.value;
-        await axios.post(`http://localhost:3000/message`,
+        await axios.post(`http://35.160.124.16:3000/message`,
         {message: message, groupId: activeGroupId},
         {headers:{'Authorization': token}})
      }
@@ -58,7 +58,7 @@ async function sendMessage(e){
 }
 
 async function getGroupMembers(){
-  const members = await axios.get(`http://localhost:3000/getMembers?groupId=${activeGroupId}`, {headers:{'Authorization':token}});
+  const members = await axios.get(`http://35.160.124.16:3000/getMembers?groupId=${activeGroupId}`, {headers:{'Authorization':token}});
   groupMembers.innerHTML = `<h3 style="color:white">Group Members</h3>`;
   let isAdmin = false;
 
@@ -111,7 +111,7 @@ function globalButton(){
 
 async function showGroup(){
     document.querySelector('#createGroup').style.display = 'block';
-    const response = await axios.get(`http://localhost:3000/users?userId=${userId}`, {headers:{'Authorization': token}});
+    const response = await axios.get(`http://35.160.124.16:3000/users?userId=${userId}`, {headers:{'Authorization': token}});
 
     response.data.users.forEach((user)=>{
         addMembers.innerHTML += `<li><input type="checkbox"/><input type='hidden' value='${user.id}'/>${user.name}</li>`
@@ -119,7 +119,7 @@ async function showGroup(){
 }
 
 async function fetchGroups(){
-    const groups = await axios.get(`http://localhost:3000/groups`, {headers:{'Authorization': token}});
+    const groups = await axios.get(`http://35.160.124.16:3000/groups`, {headers:{'Authorization': token}});
 
     showGroupList(groups.data);
     getAllGroupButtons();
@@ -191,7 +191,7 @@ groupFrom.addEventListener('submit', async(e)=>{
         groupMembers: groupMemberList
     }
 
-    const response = await axios.post(`http://localhost:3000/createGroup`, groupData, {headers:{'Authorization': token}});
+    const response = await axios.post(`http://35.160.124.16:3000/createGroup`, groupData, {headers:{'Authorization': token}});
     const groupId = response.data.group.id;
 
     // add group id to button
@@ -218,7 +218,7 @@ window.addEventListener('DOMContentLoaded',async()=>{
     }
     catch(e)
     {
-        window.location.href = "http://localhost:3000/login.html";
+        window.location.href = "http://35.160.124.16:3000/login.html";
         console.log(e);
     }
 })
@@ -227,22 +227,22 @@ groupMembers.addEventListener('click',async(e)=>{
 
     try{
         if(e.target.innerText == "Leave Group"){
-            await axios.post('http://localhost:3000/removeMember',{userId:userId,groupId:activeGroupId},{headers:{'Authorization':token}});
+            await axios.post('http://35.160.124.16:3000/removeMember',{userId:userId,groupId:activeGroupId},{headers:{'Authorization':token}});
             localStorage.removeItem(activeGroupId);
             localStorage.setItem('activeGroupId',0);
             activeGroupId=0;
         }
         else if(e.target.innerText === 'Make admin'){
             const userId = e.target.nextElementSibling.nextElementSibling.value;
-            await axios.post('http://localhost:3000/adminControl',{userId:userId,groupId:activeGroupId,adminStatus:true},{headers:{'Authorization':token}});
+            await axios.post('http://35.160.124.16:3000/adminControl',{userId:userId,groupId:activeGroupId,adminStatus:true},{headers:{'Authorization':token}});
         }
         else if(e.target.innerText === 'Dismiss as admin'){
             const userId = e.target.nextElementSibling.nextElementSibling.value;
-            await axios.post('http://localhost:3000/adminControl',{userId:userId,groupId:activeGroupId,adminStatus:false},{headers:{'Authorization':token}});
+            await axios.post('http://35.160.124.16:3000/adminControl',{userId:userId,groupId:activeGroupId,adminStatus:false},{headers:{'Authorization':token}});
         }
         else if(e.target.innerText === 'Remove from group'){
             const userId = e.target.nextElementSibling.value;
-            await axios.post('http://localhost:3000/removeMember',{userId:userId,groupId:activeGroupId},{headers:{'Authorization':token}});
+            await axios.post('http://35.160.124.16:3000/removeMember',{userId:userId,groupId:activeGroupId},{headers:{'Authorization':token}});
         }
         fetchGroups();
     }
