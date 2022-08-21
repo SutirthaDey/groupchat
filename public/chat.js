@@ -6,7 +6,7 @@ const groupFrom = document.querySelector('#createGroup form');
 const addMembers = document.getElementById('addMembers');
 const groups = document.getElementById('groups');
 const groupMembers = document.getElementById('groupInfo');
-let activeGroupId = localStorage.getItem('activeGroupId');
+let activeGroupId = +localStorage.getItem('activeGroupId');
 let setTimer;
 
 async function fetchMessages(){
